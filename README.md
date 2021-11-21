@@ -9,7 +9,17 @@ https://docs.google.com/document/d/1HFO_F_10d0VpCUFXaoR4ZOr6gLoLN0ST/edit?usp=sh
 
 -
 IMRPOVING THE CODE PLAN 
-1. SOLVE ERRORS
+1. SOLVE ERRORS: current error is shown below 
+
+
+Exception has occurred: HttpError
+<HttpError 400 when requesting https://docs.googleapis.com/v1/documents/1ON3u_SSf33ow-AkzAf01yMl0RrgXIdUT:batchUpdate?fields=&alt=json returned "This operation is not supported for this document". Details: "This operation is not supported for this document">
+  File "C:\Users\BAU\Desktop\MDS\Merge.py", line 100, in merge_template
+    documentId=copy_id, fields='').execute()
+  File "C:\Users\BAU\Desktop\MDS\Merge.py", line 132, in <module>
+    i+1, merge_template(DOCS_FILE_ID, SOURCE, DRIVE)))
+    
+
 2. FORMULATE CODE FOR OUR PURPOSE
 3. GET CODE TO MEMORTIZE YOUR CREDINTIALS ( CODE FOUND ONLINE BELOW ) 
 
