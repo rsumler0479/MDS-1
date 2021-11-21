@@ -1,12 +1,13 @@
 # MDS
-
+----------
 https://developers.google.com/docs/api/samples/mail-merge  ( lINK FOR THE SAMPLE CODE )
 https://developers.google.com/docs/api/quickstart/python   ( LINK FOR PYTHON & GOOGLE API INTEGRATION )
 https://github.com/googleworkspace/python-samples/tree/master/docs/mail-merge ( GITHUB LINK FOR SAMPLE CODE )
 ----------
 IMRPOVING THE CODE PLAN 
 1. SOLVE ERRORS
-2. GET CODE TO MEMORTIZE YOUR CREDINTIALS ( CODE FOUND ONLINE BELOW ) 
+2. FORMULATE CODE FOR OUR PURPOSE
+3. GET CODE TO MEMORTIZE YOUR CREDINTIALS ( CODE FOUND ONLINE BELOW ) 
 
 PyDrive code that automate google drive api authetication. Use the browser just one time to authenticate and never more. It saves your credential data on mycreds.json :)
 
@@ -27,4 +28,4 @@ else:
 
 gauth.SaveCredentialsFile("mycreds.json")
 
-3. GET CODE TO DOWNLOAD TEMPLATE AS PDF AFTER MERGING 
+4. GET CODE TO DOWNLOAD TEMPLATE AS PDF AFTER MERGING 
