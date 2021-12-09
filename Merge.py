@@ -1,13 +1,18 @@
 from __future__ import print_function
 import time
+import json
 
 from googleapiclient import discovery
 from httplib2 import Http
 from oauth2client import file, client, tools
 
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+
+
 # Fill-in IDs of your Docs template & any Sheets data source
-DOCS_FILE_ID = '1HFO_F_10d0VpCUFXaoR4ZOr6gLoLN0ST'
-SHEETS_FILE_ID = '1d8BpNo8rOA_xNOYaBxVAxygOIVuM3lCl0c_3YNesEPI'
+DOCS_FILE_ID = '1pvE_0M19RBrbe-VSyAFULENd7IndWPe4CUjRpp5Fd24'
+SHEETS_FILE_ID = input ('Please Enter The Sheet ID : ')
 
 # authorization constants
 CLIENT_ID_FILE = 'credentials.json'
@@ -18,13 +23,29 @@ SCOPES = (  # iterable or space-delimited string
     'https://www.googleapis.com/auth/spreadsheets.readonly',
 )
 
+# It saves your credential data on mycreds.json FOR CONSTANT USE
+
+gauth = GoogleAuth()
+gauth.LoadCredentialsFile("mycreds.json")
+
+if gauth.credentials is None:
+    gauth.LocalWebserverAuth()
+
+elif gauth.access_token_expired:
+    gauth.Refresh()
+
+else:
+    gauth.Authorize()
+
+gauth.SaveCredentialsFile("mycreds.json")
+
 # application constants
 SOURCES = ('text', 'sheets')
 SOURCE = 'sheets' # Choose one of the data SOURCES
 COLUMNS = ['Owner_Name', 'Owner_Address', 'Type_of_Account', 'Amount', 'CoOwner', 'Securities', 'Property_ID']
 TEXT_SOURCE_DATA = (
-    ('Ms. Lara Brown', 'Googler', 'Google NYC', '111 8th Ave\n'
-                                                'New York, NY  10011-5201'),
+    ('Hillel Sperling M.D.', '5620 Wilbur Ave #203 Tarzana Ca 91356', 'Associated Reproduction Services Inc.', '111 8th Ave\n'
+                                                'Vendor Check'),
     ('Mr. Jeff Erson', 'Googler', 'Google NYC', '76 9th Ave\n'
                                                 'New York, NY  10011-4962'),
 )
@@ -34,7 +55,7 @@ def get_http_client():
         scopes for authorization, and caches API tokens in TOKEN_STORE_FILE.
     """
     store = file.Storage(TOKEN_STORE_FILE)
-    creds = store.get()
+    creds = None
     if not creds or creds.invalid:
         flow = client.flow_from_clientsecrets(CLIENT_ID_FILE, SCOPES)
         creds = tools.run_flow(flow, store)
@@ -65,7 +86,7 @@ def _get_sheets_data(service=SHEETS):
         (header) row. Use any desired data range (in standard A1 notation).
     """
     return service.spreadsheets().values().get(spreadsheetId=SHEETS_FILE_ID,
-            range='ARNOLD L GILBERG').execute().get('values')[1:] # skip header row
+            range='Hillel Sperling').execute().get('values')[1:] # skip header row
 
 # data source dispatch table [better alternative vs. eval()]
 SAFE_DISPATCH = {k: globals().get('_get_%s_data' % k) for k in SOURCES}
